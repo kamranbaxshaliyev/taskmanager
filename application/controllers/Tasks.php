@@ -57,12 +57,16 @@ class Tasks extends CI_Controller
 	public function search()
 	{
 		$searchTerm = $this->input->get('query');
-		log_message('debug', 'Search term: ' . $searchTerm); // Log the search term for debugging
+		$dueDate = $this->input->get('due_date');
 
-		if (empty($searchTerm)) {
+		log_message('debug', 'Search term: ' . $searchTerm); // Log the search term for debugging
+		log_message('debug', 'Due date search: ' . $dueDate); // Log the due date for debugging
+
+		// Use conditional checks to apply search filters
+		if (empty($searchTerm) && empty($dueDate)) {
 			$data['tasks'] = $this->Task_model->get_all_tasks();
 		} else {
-			$data['tasks'] = $this->Task_model->search_tasks($searchTerm);
+			$data['tasks'] = $this->Task_model->search_tasks($searchTerm, $dueDate);
 		}
 
 		log_message('debug', 'Tasks data: ' . print_r($data['tasks'], true)); // Log the tasks data
@@ -70,8 +74,6 @@ class Tasks extends CI_Controller
 		if ($data['tasks'] === false) {
 			show_error('Error fetching tasks data from the database.');
 		}
-
-		// Load only the table rows view for AJAX response
-		$this->load->view('tasks/task_rows', $data);
+		$this->load->view('tasks/task_rows', $data); // Load the updated task list view
 	}
 }

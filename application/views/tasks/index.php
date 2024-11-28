@@ -8,6 +8,7 @@
 <div class="container mt-4">
 	<h2>Task List</h2>
 	<input type="text" id="search" class="form-control mb-3" placeholder="Search tasks...">
+	<input type="date" id="due-date-search" class="form-control mb-3" placeholder="Search by due date">
 	<a href="<?= base_url('tasks/create') ?>" class="btn btn-primary mb-3">Add Task</a>
 	<div id="task-list">
 		<table class="table table-bordered">
@@ -43,7 +44,23 @@
 				method: 'GET',
 				data: { query: searchQuery },
 				success: function (response) {
-					$('#task-list').html(response); // Update only the task list
+					$('#task-list').html(response);
+				},
+				error: function (xhr, status, error) {
+					console.error('AJAX error:', error); // Log errors
+				}
+			});
+		});
+
+		// Add event listener for date input
+		$('#due-date-search').on('change', function () {
+			let dueDate = $(this).val();
+			$.ajax({
+				url: '<?= base_url("tasks/search") ?>',
+				method: 'GET',
+				data: { due_date: dueDate },
+				success: function (response) {
+					$('#task-list').html(response);
 				},
 				error: function (xhr, status, error) {
 					console.error('AJAX error:', error); // Log errors

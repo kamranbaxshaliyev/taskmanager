@@ -28,11 +28,17 @@ class Task_model extends CI_Model
 		return $this->db->where('id', $id)->delete('tasks');
 	}
 
-	public function search_tasks($searchTerm)
+	public function search_tasks($searchTerm = null, $dueDate = null)
 	{
 		try {
-			$this->db->like('name', $searchTerm);
-			$this->db->or_like('due_date', $searchTerm);
+			if ($searchTerm) {
+				$this->db->like('name', $searchTerm);
+			}
+
+			if ($dueDate) {
+				$this->db->where('due_date', $dueDate);
+			}
+
 			$query = $this->db->get('tasks');
 
 			if (!$query) {
@@ -45,5 +51,4 @@ class Task_model extends CI_Model
 			return false;
 		}
 	}
-
 }
