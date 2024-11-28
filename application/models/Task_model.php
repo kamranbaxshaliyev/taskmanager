@@ -27,4 +27,23 @@ class Task_model extends CI_Model
 	{
 		return $this->db->where('id', $id)->delete('tasks');
 	}
+
+	public function search_tasks($searchTerm)
+	{
+		try {
+			$this->db->like('name', $searchTerm);
+			$this->db->or_like('due_date', $searchTerm);
+			$query = $this->db->get('tasks');
+
+			if (!$query) {
+				throw new Exception('Database query failed.');
+			}
+
+			return $query->result_array();
+		} catch (Exception $e) {
+			log_message('error', 'Search tasks error: ' . $e->getMessage());
+			return false;
+		}
+	}
+
 }

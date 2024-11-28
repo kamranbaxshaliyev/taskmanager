@@ -53,4 +53,25 @@ class Tasks extends CI_Controller
 		$this->Task_model->delete_task($id);
 		redirect('tasks');
 	}
+
+	public function search()
+	{
+		$searchTerm = $this->input->get('query');
+		log_message('debug', 'Search term: ' . $searchTerm); // Log the search term for debugging
+
+		if (empty($searchTerm)) {
+			$data['tasks'] = $this->Task_model->get_all_tasks();
+		} else {
+			$data['tasks'] = $this->Task_model->search_tasks($searchTerm);
+		}
+
+		log_message('debug', 'Tasks data: ' . print_r($data['tasks'], true)); // Log the tasks data
+
+		if ($data['tasks'] === false) {
+			show_error('Error fetching tasks data from the database.');
+		}
+
+		// Load only the table rows view for AJAX response
+		$this->load->view('tasks/task_rows', $data);
+	}
 }
