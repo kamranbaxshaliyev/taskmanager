@@ -19,7 +19,7 @@ Installation
 ************
 
 1. Clone the repository:
-   git clone https://github.com/yourusername/task-manager.git
+   git clone https://github.com/kamranbaxshaliyev/taskmanager.git
 
 2. Navigate to the project directory:
    
