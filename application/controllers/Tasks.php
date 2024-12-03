@@ -10,9 +10,7 @@ class Tasks extends CI_Controller
 
 		// Check if the user is logged in
 		if (!$this->session->userdata('logged_in'))
-		{
 			redirect('user/login');
-		}
 	}
 
 	public function index()
@@ -37,6 +35,7 @@ class Tasks extends CI_Controller
 			'user_id' => $user_id,
 		];
 		$this->Task_model->create_task($data);
+
 		redirect('tasks');
 	}
 
@@ -56,6 +55,7 @@ class Tasks extends CI_Controller
 			'due_date' => $this->input->post('due_date'),
 		];
 		$this->Task_model->update_task($id, $data, $user_id);
+
 		redirect('tasks');
 	}
 
@@ -63,6 +63,7 @@ class Tasks extends CI_Controller
 	{
 		$user_id = $this->session->userdata('user')['id'];
 		$this->Task_model->delete_task($id, $user_id);
+
 		redirect('tasks');
 	}
 
@@ -72,15 +73,14 @@ class Tasks extends CI_Controller
 		$searchTerm = $this->input->get('query');
 		$dueDate = $this->input->get('due_date');
 
-		if (empty($searchTerm) && empty($dueDate)) {
+		if (empty($searchTerm) && empty($dueDate))
 			$data['tasks'] = $this->Task_model->get_all_tasks_by_user($user_id);
-		} else {
+		else
 			$data['tasks'] = $this->Task_model->search_tasks($user_id, $searchTerm, $dueDate);
-		}
 
-		if ($data['tasks'] === false) {
+		if ($data['tasks'] === false)
 			show_error('Error fetching tasks data from the database.');
-		}
+
 		$this->load->view('tasks/task_rows', $data);
 	}
 }

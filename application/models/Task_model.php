@@ -30,25 +30,33 @@ class Task_model extends CI_Model
 
 	public function search_tasks($user_id, $searchTerm = null, $dueDate = null)
 	{
-		try {
+		try
+		{
 			$this->db->where('user_id', $user_id);
-			if ($searchTerm) {
+
+			if ($searchTerm)
+			{
 				$this->db->like('name', $searchTerm);
 			}
 
-			if ($dueDate) {
+			if ($dueDate)
+			{
 				$this->db->where('due_date', $dueDate);
 			}
 
 			$query = $this->db->get('tasks');
 
-			if (!$query) {
+			if (!$query)
+			{
 				throw new Exception('Database query failed.');
 			}
 
 			return $query->result_array();
-		} catch (Exception $e) {
+		}
+		catch (Exception $e)
+		{
 			log_message('error', 'Search tasks error: ' . $e->getMessage());
+
 			return false;
 		}
 	}

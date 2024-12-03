@@ -30,7 +30,8 @@
 					<td><?= $task['due_date'] ?></td>
 					<td>
 						<a href="<?= base_url('tasks/edit/' . $task['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
-						<a href="<?= base_url('tasks/delete/' . $task['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+						<a href="<?= base_url('tasks/delete/' . $task['id']) ?>" class="btn btn-danger btn-sm"
+						   onclick="return confirm('Are you sure?')">Delete</a>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -46,7 +47,7 @@
 			$.ajax({
 				url: '<?= base_url("tasks/search") ?>',
 				method: 'GET',
-				data: { query: searchQuery },
+				data: {query: searchQuery},
 				success: function (response) {
 					$('#task-list').html(response);
 				},
@@ -62,7 +63,7 @@
 			$.ajax({
 				url: '<?= base_url("tasks/search") ?>',
 				method: 'GET',
-				data: { due_date: dueDate },
+				data: {due_date: dueDate},
 				success: function (response) {
 					$('#task-list').html(response);
 				},

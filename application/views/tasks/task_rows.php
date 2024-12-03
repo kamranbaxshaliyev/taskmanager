@@ -14,7 +14,8 @@
 				<td><?= htmlspecialchars($task['due_date']) ?></td>
 				<td>
 					<a href="<?= base_url('tasks/edit/' . $task['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
-					<a href="<?= base_url('tasks/delete/' . $task['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+					<a href="<?= base_url('tasks/delete/' . $task['id']) ?>" class="btn btn-danger btn-sm"
+					   onclick="return confirm('Are you sure?')">Delete</a>
 				</td>
 			</tr>
 		<?php endforeach; ?>
