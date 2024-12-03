@@ -3,9 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Task_model extends CI_Model
 {
-	public function get_all_tasks()
+	public function get_all_tasks_by_user($user_id)
 	{
-		return $this->db->get('tasks')->result_array();
+		return $this->db->where('user_id', $user_id)->get('tasks')->result_array();
 	}
 
 	public function create_task($data)
@@ -13,24 +13,25 @@ class Task_model extends CI_Model
 		return $this->db->insert('tasks', $data);
 	}
 
-	public function get_task($id)
+	public function get_task($id, $user_id)
 	{
-		return $this->db->where('id', $id)->get('tasks')->row_array();
+		return $this->db->where('id', $id)->where('user_id', $user_id)->get('tasks')->row_array();
 	}
 
-	public function update_task($id, $data)
+	public function update_task($id, $data, $user_id)
 	{
-		return $this->db->where('id', $id)->update('tasks', $data);
+		return $this->db->where('id', $id)->where('user_id', $user_id)->update('tasks', $data);
 	}
 
-	public function delete_task($id)
+	public function delete_task($id, $user_id)
 	{
-		return $this->db->where('id', $id)->delete('tasks');
+		return $this->db->where('id', $id)->where('user_id', $user_id)->delete('tasks');
 	}
 
-	public function search_tasks($searchTerm = null, $dueDate = null)
+	public function search_tasks($user_id, $searchTerm = null, $dueDate = null)
 	{
 		try {
+			$this->db->where('user_id', $user_id);
 			if ($searchTerm) {
 				$this->db->like('name', $searchTerm);
 			}

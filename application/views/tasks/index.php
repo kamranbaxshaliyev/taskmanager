@@ -6,7 +6,11 @@
 </head>
 <body>
 <div class="container mt-4">
-	<h2>Task List</h2>
+	<div class="d-flex justify-content-between align-items-center">
+		<h2>Task List</h2>
+		<a href="<?= base_url('user/logout') ?>" class="btn btn-danger">Logout</a>
+	</div>
+	<hr>
 	<input type="text" id="search" class="form-control mb-3" placeholder="Search tasks...">
 	<input type="date" id="due-date-search" class="form-control mb-3" placeholder="Search by due date">
 	<a href="<?= base_url('tasks/create') ?>" class="btn btn-primary mb-3">Add Task</a>
