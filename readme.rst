@@ -26,7 +26,7 @@ Installation
 	cd task-manager
 
 
-3. Create and configure your database as in `application/config/database.php`.
+3. Create and configure your database as in `application/config/database.php` (as default you can create database 'task_manager').
 
 4. Run migrations to set up the database schema via the browser or command line:
 
